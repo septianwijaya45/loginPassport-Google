@@ -81,6 +81,13 @@ exports.postSignUp = async (req, res) => {
   }
 };
 
+exports.logout = async (req, res) => {
+  req.logout();
+  req.session.destroy(function (err) {
+    res.redirect("/");
+  });
+};
+
 exports.profile = async (req, res) => {
   res.render("profile", {
     username: req.user.username,

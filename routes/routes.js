@@ -6,6 +6,7 @@ const {
   postSignUp,
   profile,
   postLogin,
+  logout,
 } = require("../controller/userController");
 const { checkAuth } = require("../middleware/checkAuth");
 const router = express.Router();
@@ -14,6 +15,7 @@ router.get("/", homeIndex);
 
 router.get("/login", login);
 router.post("/login", postLogin);
+router.get("/logout", logout);
 
 router.get("/signup", showSignUp);
 
