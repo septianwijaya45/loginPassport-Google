@@ -88,7 +88,7 @@
         <!-- if someone tried to access a protected route  -->
         <!-- this flash message will show them to login first  -->
 
-        <!-- <% if( error !="" ){ %>
+        <% if( error !="" ){ %>
         <div
           class="alert alert-danger alert-dismissible fade show"
           role="alert"
@@ -102,9 +102,9 @@
             aria-label="Close"
           ></button>
         </div>
-        <% } %> -->
+        <% } %>
 
-        <form action="/login" , method="POST">
+        <form action="/login" method="POST">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
           <div class="mb-3">
             <label for="username">Enter Your Email</label>

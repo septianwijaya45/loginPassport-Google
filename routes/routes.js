@@ -4,6 +4,7 @@ const {
   showSignUp,
   postSignUp,
   profile,
+  postLogin,
 } = require("../controller/userController");
 const router = express.Router();
 
@@ -12,6 +13,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/login", login);
+router.post("/login", postLogin);
 
 router.get("/signup", showSignUp);
 

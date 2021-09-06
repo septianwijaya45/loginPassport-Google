@@ -1,10 +1,20 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
+require("../middleware/passportLocal")(passport);
 
 exports.login = async (req, res) => {
   res.render("login", {
     csrfToken: req.csrfToken(),
   });
+};
+
+exports.postLogin = async (req, res, next) => {
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    successRedirect: "/profile",
+    failureFlash: true,
+  })(req, res, next);
 };
 
 exports.showSignUp = async (req, res) => {
@@ -72,5 +82,5 @@ exports.postSignUp = async (req, res) => {
 };
 
 exports.profile = async (req, res) => {
-  res.render("profile");
+  res.render("profile", { username: "username", verified: "false" });
 };
