@@ -46,9 +46,10 @@ app.use((req, res, next) => {
   next();
 });
 
-const userRoute = require("./routes/routes");
 const { urlencoded } = require("express");
 const { session } = require("passport");
+
+const userRoute = require("./routes/routes");
 app.use("/", userRoute);
 
 app.listen(PORT, () => {

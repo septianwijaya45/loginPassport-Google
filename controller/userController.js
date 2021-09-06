@@ -82,5 +82,8 @@ exports.postSignUp = async (req, res) => {
 };
 
 exports.profile = async (req, res) => {
-  res.render("profile", { username: "username", verified: "false" });
+  res.render("profile", {
+    username: req.user.username,
+    verified: req.user.isVerified,
+  });
 };
