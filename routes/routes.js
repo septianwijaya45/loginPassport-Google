@@ -1,28 +1,22 @@
 const express = require("express");
+const {
+  login,
+  showSignUp,
+  postSignUp,
+  profile,
+} = require("../controller/userController");
 const router = express.Router();
 
 router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.get("/login", (req, res) => {
-  res.render("login", {
-    error: false,
-    error_message: null,
-    csrfToken: req.csrfToken(),
-  });
-});
+router.get("/login", login);
 
-router.get("/signup", (req, res) => {
-  res.render("signup", { csrfToken: req.csrfToken() });
-});
+router.get("/signup", showSignUp);
 
-router.post("/signup", (req, res) => {
-  res.send("Validated!");
-});
+router.post("/signup", postSignUp);
 
-router.get("/profile", (req, res) => {
-  res.render("profile");
-});
+router.get("/profile", profile);
 
 module.exports = router;

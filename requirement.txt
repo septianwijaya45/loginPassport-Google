@@ -1,1 +1,1 @@
-npm i express ejs mongoose nodemon csurf express-session dotenv
+npm i express ejs mongoose nodemon csurf express-session dotenv bcryptjs passport passport-local connect-flash cookie-parser memorystore
