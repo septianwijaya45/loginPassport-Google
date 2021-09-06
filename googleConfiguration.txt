@@ -1,0 +1,12 @@
+Google Authenticate
+
+Getting Credentials
+1. Open website https://console.cloud.google.com/
+2. Create a project
+3. Open firebase, create project => setting => support email
+4. And input a field
+5. Click save 
+6. After create a project, click Credentials in sidebar => Create Credential => OAuth client ID => configure consent screen => external => create
+7. Input all field
+8. And then click credential again, => create => OAuth Client ID => app type (web dev)
+9. Copy client id
