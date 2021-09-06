@@ -88,6 +88,10 @@ exports.logout = async (req, res) => {
   });
 };
 
+exports.googleCallback = async (req, res) => {
+  res.redirect("/profile");
+};
+
 exports.profile = async (req, res) => {
   res.render("profile", {
     username: req.user.username,

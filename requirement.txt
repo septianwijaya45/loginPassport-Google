@@ -1,1 +1,4 @@
 npm i express ejs mongoose nodemon csurf express-session dotenv bcryptjs passport passport-local connect-flash cookie-parser memorystore
+
+// installing google auth
+npm i passport-google-oauth20
