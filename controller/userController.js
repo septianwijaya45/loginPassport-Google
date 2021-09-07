@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
+const fileUpload = require("../models/fileUpload");
 require("../middleware/passportLocal")(passport);
 
 exports.login = async (req, res) => {
@@ -93,8 +94,12 @@ exports.googleCallback = async (req, res) => {
 };
 
 exports.profile = async (req, res) => {
+  const data = await fileUpload.find({ user: req.user._id });
   res.render("profile", {
     username: req.user.username,
     verified: req.user.isVerified,
+    data: data,
+    csrfToken: req.csrfToken(),
+    url: req.protocol + "://" + req.get("host") + "/images",
   });
 };

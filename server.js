@@ -8,12 +8,55 @@ const expressSession = require("express-session");
 const MemoryStore = require("memorystore")(expressSession);
 const passport = require("passport");
 const flash = require("connect-flash");
+const path = require("path");
+const bodyParser = require("body-parser");
+const multer = require("multer");
+// const fileUpload = require("express-fileupload");
 
 const app = express();
 dotenv.config();
+
 connectDB();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+// file upload
+
+// let dateTime = new Date();
+// const offset = dateTime.getTimezoneOffset();
+// dateTime = new Date(dateTime.getTime() - offset * 60 * 1000);
+// dateTime = dateTime.toISOString().split("T")[0];
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, "file-" + new Date().getTime() + "-" + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/jpg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static(__dirname + "/public"));
+
+app.use(
+  multer({
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: { fileSize: 125000 * 100 },
+  }).single("images")
+);
 
 const PORT = process.env.PORT || 3030;
 
@@ -49,8 +92,10 @@ app.use((req, res, next) => {
 const { urlencoded } = require("express");
 const { session } = require("passport");
 
-const userRoute = require("./routes/routes");
+const userRoute = require("./routes/userRouter");
+const fileUploadRouter = require("./routes/fileRouter");
 app.use("/", userRoute);
+app.use("/file-upload", fileUploadRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

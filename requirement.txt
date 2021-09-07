@@ -2,3 +2,6 @@ npm i express ejs mongoose nodemon csurf express-session dotenv bcryptjs passpor
 
 // installing google auth
 npm i passport-google-oauth20
+
+// file upload
+npm i multer express-fileupload
