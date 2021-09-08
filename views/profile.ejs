@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="<%= csrfToken %>" />
     <!-- Font  -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -110,21 +111,25 @@
 
       <h1 class="text-center p-3">Your Profile</h1>
 
-      <% data.forEach(items => { %>
-      <div class="card" style="width: 28rem">
-        <img src="<%= url+'/'+items.nameFile %>" alt="" />
-        <div class="card-body">
-          <h3 class="card-title"><%= username %></h3>
-          <button
-            class="btn btn-danger"
-            data-id="<%= items._id %> "
-            id="btn-delete"
-          >
-            Delete
-          </button>
+      <div class="row">
+        <% data.forEach(items => { %>
+        <div class="col-md-4">
+          <div class="card">
+            <img src="<%= url+'/'+items.nameFile %>" alt="" />
+            <div class="card-body">
+              <h3 class="card-title">username</h3>
+              <button
+                class="btn btn-danger"
+                data-id="<%= items._id %> "
+                id="btn-delete"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
+        <% }) %>
       </div>
-      <% }) %>
     </div>
 
     <script
@@ -135,8 +140,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script type="text/javascript">
+      let token = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
       $(document).ready(function () {
-        $("#btn-delete").click((e) => {
+        $("body").on("click", "#btn-delete", (e) => {
           e.preventDefault();
           let url = window.location.origin;
           let dataId = $(e.target).attr("data-id");
@@ -146,8 +154,15 @@
               url: url + "/file-upload/delete/" + dataId,
               method: "delete",
               headers: {
-                Authorization: csrfToken,
+                "CSRF-Token": token, // <-- is the csrf token as a header
               },
+            }).done((res) => {
+              if (res.success) {
+                alert("Data Successfully deleted!");
+                window.location.reload();
+              } else {
+                alert("Something Error! Error: " + res.error);
+              }
             });
           }
         });

@@ -1,3 +1,4 @@
+const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
 const fileUpload = require("../models/fileUpload");
@@ -35,7 +36,18 @@ exports.postFile = async (req, res) => {
 };
 
 exports.deleteFile = async (req, res) => {
-  console.log(__dirname);
+  const data = await fileUpload.findOne({ _id: req.params.id });
+  const path = process.cwd() + "/public/images/" + data.nameFile;
+
+  await fileUpload
+    .deleteOne({ _id: req.params.id })
+    .then(() => {
+      fs.unlinkSync(path);
+      res.json({ success: true });
+    })
+    .catch((err) => {
+      res.status.json({ err: err });
+    });
 };
 
 exports.multipleIndex = async (req, res) => {

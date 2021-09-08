@@ -94,10 +94,12 @@ exports.googleCallback = async (req, res) => {
 };
 
 exports.profile = async (req, res) => {
-  const data = await fileUpload.find({ user: req.user._id });
+  const data = await fileUpload.find({ user: "6135cecf6108e15680b64b29" });
+  // const data = await fileUpload.find({ user: req.user._id });
   res.render("profile", {
-    username: req.user.username,
-    verified: req.user.isVerified,
+    // username: req.user.username,
+    // verified: req.user.isVerified,
+    verified: false,
     data: data,
     csrfToken: req.csrfToken(),
     url: req.protocol + "://" + req.get("host") + "/images",
