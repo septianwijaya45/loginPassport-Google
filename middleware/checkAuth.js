@@ -6,6 +6,8 @@ exports.checkAuth = function (req, res, next) {
     );
     next();
   } else {
-    res.redirect("/");
+    req.flash("error_message", "Please Login to Continue the App!");
+    let csrfToken = req.csrfToken();
+    res.cookie(csrfToken).redirect("/login");
   }
 };

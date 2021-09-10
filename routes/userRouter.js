@@ -8,7 +8,11 @@ const {
   postLogin,
   logout,
   googleCallback,
-} = require("../controller/userController");
+} = require("../controller/user/userController");
+const {
+  userVerification,
+  verifyUser,
+} = require("../controller/user/userVerificationController");
 const { checkAuth } = require("../middleware/checkAuth");
 const passport = require("passport");
 require("../middleware/googleAuth")(passport);
@@ -36,5 +40,9 @@ router.get("/signup", showSignUp);
 router.post("/signup", postSignUp);
 
 router.get("/profile", checkAuth, profile);
+
+// verification Token
+router.get("/send-verification-email", checkAuth, userVerification);
+router.get("/verify-email", checkAuth, verifyUser);
 
 module.exports = router;

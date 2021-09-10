@@ -88,13 +88,13 @@
         <!-- if someone tried to access a protected route  -->
         <!-- this flash message will show them to login first  -->
 
-        <% if( error !="" ){ %>
+        <% if( error_message !="" ){ %>
         <div
           class="alert alert-danger alert-dismissible fade show"
           role="alert"
         >
-          <strong> Error </strong>
-          <%= error %>.
+          <strong> Error! </strong>
+          <%= error_message %>.
           <button
             type="button"
             class="btn-close"

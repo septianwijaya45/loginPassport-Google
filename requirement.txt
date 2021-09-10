@@ -5,3 +5,6 @@ npm i passport-google-oauth20
 
 // file upload
 npm i multer express-fileupload
+
+// send email
+npm i nodemailer

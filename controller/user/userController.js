@@ -1,8 +1,9 @@
-const User = require("../models/user");
+const User = require("../../models/user");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const fileUpload = require("../models/fileUpload");
-require("../middleware/passportLocal")(passport);
+const fileUpload = require("../../models/fileUpload");
+const crypto = require("crypto");
+require("../../middleware/passportLocal")(passport);
 
 exports.login = async (req, res) => {
   res.render("login", {
@@ -27,7 +28,6 @@ exports.showSignUp = async (req, res) => {
 exports.postSignUp = async (req, res) => {
   // get all item field request
   const { email, username, password, confirmpassword } = req.body;
-  console.log(req.body);
   //check if the all field is empty
   if (!email || !username || !password || !confirmpassword) {
     res.render("signup", {
@@ -94,12 +94,11 @@ exports.googleCallback = async (req, res) => {
 };
 
 exports.profile = async (req, res) => {
-  const data = await fileUpload.find({ user: "6135cecf6108e15680b64b29" });
+  const data = await fileUpload.find({ user: req.user._id });
   // const data = await fileUpload.find({ user: req.user._id });
   res.render("profile", {
-    // username: req.user.username,
-    // verified: req.user.isVerified,
-    verified: false,
+    username: req.user.username,
+    verified: req.user.isVerified,
     data: data,
     csrfToken: req.csrfToken(),
     url: req.protocol + "://" + req.get("host") + "/images",

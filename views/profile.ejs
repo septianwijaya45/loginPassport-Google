@@ -77,7 +77,7 @@
       >
         <strong>ATTENTION !</strong> Please verify your account to continue
         using our services.
-        <a href="/user/send-verification-email">Re-send Verification Email</a>
+        <a href="/send-verification-email">Re-send Verification Email</a>
         <button
           type="button"
           class="btn-close"
@@ -85,7 +85,7 @@
           aria-label="Close"
         ></button>
       </div>
-      <% } %> <% if(typeof emailsent !='undefined' ){ %> <% if(emailsent){ %>
+      <% } %> <% if(typeof emailSend !='undefined' ){ %> <% if(emailSend){ %>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>SUCCESS</strong> Verification Email Sent Sucessfully. Valid Only
         for 20 minutes.
