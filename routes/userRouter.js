@@ -15,6 +15,12 @@ const {
 } = require("../controller/user/userVerificationController");
 const { checkAuth } = require("../middleware/checkAuth");
 const passport = require("passport");
+const {
+  getForgotPassword,
+  postForgotPassword,
+  getResetPassword,
+  postResetPassword,
+} = require("../controller/user/userResetPassword");
 require("../middleware/googleAuth")(passport);
 const router = express.Router();
 
@@ -44,5 +50,13 @@ router.get("/profile", checkAuth, profile);
 // verification Token
 router.get("/send-verification-email", checkAuth, userVerification);
 router.get("/verify-email", checkAuth, verifyUser);
+
+// forgot password
+router.get("/forgot-password", getForgotPassword);
+router.post("/forgot-password", postForgotPassword);
+
+// reset password
+router.get("/reset-password", getResetPassword);
+router.post("/reset-password", postResetPassword);
 
 module.exports = router;
